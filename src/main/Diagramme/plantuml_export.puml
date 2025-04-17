@@ -1,0 +1,58 @@
+@startuml
+package org.example.jeudelavie {
+
+class JeuDeLaVieModel {
+  +n : int
+  +grille : Color[][]
+  -couleurMorte : Color
+  -couleurVivante : Color
+  +precedenteGrille : Color[][]
+
+  +JeuDeLaVieModel()
+  +compterVoisin(grille : Color[][], i : int, j : int, n : int) : int
+  +celluleVivante(grille : Color[][], n : int) : int
+  +getCouleurMorte() : Color
+  +getCouleurVivante() : Color
+}
+class MaGrilleController {
+        +model : JeuDeLaVieModel
+        +view : MaGrilleView
+        +timeline : Timeline
+        +MaGrilleController(model : JeuDeLaVieModel, view : MaGrilleView)
+        +Jeu()
+        +getTimeline() : Timeline
+    }
+class MaGrilleView {
+    + gridPane : GridPane
+    + populationLabel : Label
+    + labelGeneration : Label
+    + numeroGeneration : Text
+    + timeline : Timeline
+    + execution : boolean
+    + compteur : int
+    + buttonReset : Button
+    + buttonStart : Button
+    + buttonPause : Button
+    + choiceBox: ChoiceBox
+    + model : JeuDeLaVieModel
+    + controller : MaGrilleController
+
+    + start(stage : Stage) : void
+    + MiseAJour(grille : Color[][], gridPane : GridPane, n : int) : void
+    + creerRectangle(i : int, j : int) : Rectangle
+    + creerTitre() : Label
+    + creerChoiceBox() : ChoiceBox<String>
+    + creerInfo() : HBox
+    + creerDescription() : VBox
+    + lienVersAuteur() : Hyperlink
+    + controlBouton() : HBox
+    + traiterObjet(objets : Object...) : void
+    + creerSlider() : Slider
+}
+MaGrilleView --> MaGrilleController : utilise
+MaGrilleController --> JeuDeLaVieModel : agit
+MaGrilleView --> JeuDeLaVieModel : lit
+JeuDeLaVieModel --> MaGrilleController : informe
+MaGrilleController --> MaGrilleView : met a jour
+}
+@enduml
